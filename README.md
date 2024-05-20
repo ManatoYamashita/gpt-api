@@ -26,7 +26,7 @@ Make sure you have the following installed on your machine:
 1. Clone the repository:
 
    ```sh
-   git clone [https://github.com/yourusername/your-repo-name.git](https://github.com/ManatoYamashita/gpt-api.git)
+   git clone https://github.com/ManatoYamashita/gpt-api.git
    cd your-repo-name
    ```
 
