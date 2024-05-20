@@ -1,4 +1,4 @@
-# Next.js ChatGPT Web App
+# Next.js with ChatGPT Web App
 
 <img width="500" alt="screenshot2" src="https://github.com/ManatoYamashita/gpt-api/assets/95745485/495305e1-ab55-4d1e-8173-840cb114b445">
 
@@ -26,7 +26,7 @@ Make sure you have the following installed on your machine:
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/yourusername/your-repo-name.git
+   git clone [https://github.com/yourusername/your-repo-name.git](https://github.com/ManatoYamashita/gpt-api.git)
    cd your-repo-name
    ```
 
