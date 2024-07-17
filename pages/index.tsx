@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import styles from '@/styles/chat.module.scss';
 
 const Chat = () => {
   const [prompt, setPrompt] = useState('');
@@ -13,12 +14,14 @@ const Chat = () => {
     setError('');
 
     try {
-      const res = await axios.post('/api/chatgpt', { prompt }, { timeout: 15000 });
+      const res = await axios.post('/api/chatgpt', { 
+        prompt: "次のプライバシーポリシーの文章を要約してください。その際、「ユーザが許されていること」と、「許されていないこと」、「企業が管理すること」、「ユーザが管理せなばならないこと」に分けてhtml形式で書いてください。 ```" + prompt + "```"
+      }, { timeout: 20000 });
       console.log('Response from API: ', res.data); // log the response to the console
       setAnswer(res.data.text);
     } catch (e: any) {
       if (e.code === 'ECONNABORTED') {
-        setError('タイムアウト: 15秒以内に回答が返ってきませんでした。');
+        setError('タイムアウト: 20秒以内に回答が返ってきませんでした。');
       } else {
         setError('エラーが発生しました。');
       }
@@ -28,52 +31,44 @@ const Chat = () => {
   };
 
   return (
-    <div className="wrap">
-      <div className="">
-        <div className="">
-          <h2 className="">Next ChatBot</h2>
-        </div>
+    <div className={styles.wrap}>
+      <div className={styles.header}>
+        <h2 className={styles.title}>Privacy Policy Summary</h2>
       </div>
-      <div className="">
-        <div className="">
-          <label
-            htmlFor="question"
-            className=""
-          >
-            質問フォーム：
-          </label>
-          <div className="">
-            <textarea
-              id="question"
-              className=""
-              placeholder="質問したいことを入力してください"
-              maxLength={500}
-              rows={5}
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="">
+      <div className={styles.form}>
+        <label htmlFor="question" className={styles.label}>
+          文章またはURL: 
+        </label>
+        <textarea
+          id="question"
+          className={styles.textarea}
+          placeholder="Type your prompt here..."
+          maxLength={3000}
+          rows={5}
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+        />
         <button
-            type="button"
-            className=""
-            disabled={isLoading || prompt.length === 0}
-            onClick={generateAnswer}
-          >
-            質問する
-          </button>
-        </div>
+          type="button"
+          className={styles.button}
+          disabled={isLoading || prompt.length === 0}
+          onClick={generateAnswer}
+        >
+          質問する
+        </button>
         {isLoading ? (
-          <div className="">読み込み中...</div>
+          <div className={styles.loading}>読み込み中...</div>
         ) : (
           <>
-            {error && <div className="">{error}</div>}
+            {error && <div className={styles.error}>{error}</div>}
             {answer && (
-              <>
-                <div className="">回答：</div>
-                <p className="">{answer}</p>
-              </>
+              <div className={styles.answerContainer}>
+                <div className={styles.answerLabel}>回答：</div>
+                <div
+                  className={styles.answer}
+                  dangerouslySetInnerHTML={{ __html: answer }}
+                />
+              </div>
             )}
           </>
         )}

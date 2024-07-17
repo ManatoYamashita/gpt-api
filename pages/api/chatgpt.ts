@@ -4,13 +4,23 @@ import axios from 'axios';
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const { prompt } = req.body;
+    const setting = ``;
 
     try {
       const response = await axios.post(
         'https://api.openai.com/v1/chat/completions',
         {
-          model: 'gpt-4', // 使用するモデルを指定
-          messages: [{ role: 'user', content: prompt }],
+          model: 'gpt-3.5-turbo',
+          messages: [
+            { 
+              role: 'user',
+              content: prompt,
+            },
+            {
+              role: 'assistant',
+              content: setting,
+            },
+          ],
         },
         {
           headers: {
